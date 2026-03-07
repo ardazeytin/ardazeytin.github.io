@@ -123,7 +123,14 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://www.glitchstudios.co/projects-archive/delta/"><img src="assets\img\projects\deltavirtualstandwebgl.jpg" alt="Card Image" class="card-img-top scale-on-hover"></a>
+                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://www.glitchstudios.co/projects-archive/delta/">
+                                <span class="card-img-top scale-on-hover hover-video-card" id="delta-preview">
+                                    <video id="delta-video" class="hover-video" title="Delta's Digital Exhibition preview" autoplay muted loop playsinline preload="none" poster="assets/img/projects/deltavirtualstandwebgl.jpg">
+                                        <source id="delta-video-source" src="https://www.glitchstudios.co/wp-content/uploads/2024/05/delta_digital_exhibition.mp4" type="video/mp4">
+                                    </video>
+                                    <img id="delta-fallback" src="assets/img/projects/deltavirtualstandwebgl.jpg" alt="Card Image" class="hover-fallback-image">
+                                </span>
+                            </a>
                             <div class="card-body">
                                 <h6><a target="_blank" rel="noopener noreferrer" href="https://www.glitchstudios.co/projects-archive/delta/">Delta's Digital Exhibition</a></h6>
                                 <p class="text-muted card-text">2020</p>
@@ -510,6 +517,16 @@
                     'https://cdn.cloudflare.steamstatic.com/steam/apps/1435700/326960/190feeb6bc33d92c48e1de33e59633f8c3f0972a/1750988161/microtrailer.mp4',
                     'https://cdn.cloudflare.steamstatic.com/steam/apps/1435700/326960/190feeb6bc33d92c48e1de33e59633f8c3f0972a/1750988161/microtrailer.webm',
                     'https://cdn.akamai.steamstatic.com/steam/apps/256809698/movie_max.mp4'
+                ]
+            });
+
+            initializeVideoCard({
+                previewId: 'delta-preview',
+                videoId: 'delta-video',
+                fallbackId: 'delta-fallback',
+                sourceId: 'delta-video-source',
+                mp4Source: [
+                    'https://www.glitchstudios.co/wp-content/uploads/2024/05/delta_digital_exhibition.mp4'
                 ]
             });
 
