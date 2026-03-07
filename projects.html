@@ -324,9 +324,16 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=EXDG87Vq7VU"><img src="assets\img\projects\flyingislandthumbnail.jpg" alt="Card Image" class="card-img-top scale-on-hover"></a>
+                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="assets/videos/flying-island-course-project-2016.mp4">
+                            <span class="card-img-top scale-on-hover hover-video-card" id="flying-island-preview">
+                                <video id="flying-island-video" class="hover-video" title="Flying Island preview" autoplay muted loop playsinline preload="none" poster="assets/img/projects/flyingislandthumbnail.jpg">
+                                    <source id="flying-island-video-source" src="assets/videos/flying-island-course-project-2016.mp4" type="video/mp4">
+                                </video>
+                                <img id="flying-island-fallback" src="assets/img/projects/flyingislandthumbnail.jpg" alt="Card Image" class="hover-fallback-image">
+                            </span>
+                        </a>
                             <div class="card-body">
-                                <h6><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=EXDG87Vq7VU">Flying Island</a></h6>
+                                <h6><a target="_blank" rel="noopener noreferrer" href="assets/videos/flying-island-course-project-2016.mp4">Flying Island</a></h6>
                                 <p class="text-muted card-text">2016</p>
                                 <p class="text-muted card-text">Software Engineering Student at Izmir University of Economics</p>
                                 <p class="text-muted card-text">Unity - 3D Mobile Game</p>
@@ -335,9 +342,16 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=OgN9yr-H73I"><img src="assets\img\projects\hololensprototypegamethumbnail.jpg" alt="Card Image" class="card-img-top scale-on-hover"></a>
+                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="assets/videos/holoshoot-course-project-2017.mp4">
+                            <span class="card-img-top scale-on-hover hover-video-card" id="holoshoot-preview">
+                                <video id="holoshoot-video" class="hover-video" title="Hololens Game Prototype preview" autoplay muted loop playsinline preload="none" poster="assets/img/projects/hololensprototypegamethumbnail.jpg">
+                                    <source id="holoshoot-video-source" src="assets/videos/holoshoot-course-project-2017.mp4" type="video/mp4">
+                                </video>
+                                <img id="holoshoot-fallback" src="assets/img/projects/hololensprototypegamethumbnail.jpg" alt="Card Image" class="hover-fallback-image">
+                            </span>
+                        </a>
                             <div class="card-body">
-                                <h6><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=OgN9yr-H73I">Hololens Game Prototype</a></h6>
+                                <h6><a target="_blank" rel="noopener noreferrer" href="assets/videos/holoshoot-course-project-2017.mp4">Hololens Game Prototype</a></h6>
                                 <p class="text-muted card-text">2017</p>
                                 <p class="text-muted card-text">Microsoft Student Partner</p>
                                 <p class="text-muted card-text">Unity - Mixed Reality Game</p>
@@ -714,6 +728,26 @@
                 sourceId: 'mrp-video-source',
                 mp4Source: [
                     'assets/videos/mr-p-course-project-2018.mp4'
+                ]
+            });
+
+            initializeVideoCard({
+                previewId: 'flying-island-preview',
+                videoId: 'flying-island-video',
+                fallbackId: 'flying-island-fallback',
+                sourceId: 'flying-island-video-source',
+                mp4Source: [
+                    'assets/videos/flying-island-course-project-2016.mp4'
+                ]
+            });
+
+            initializeVideoCard({
+                previewId: 'holoshoot-preview',
+                videoId: 'holoshoot-video',
+                fallbackId: 'holoshoot-fallback',
+                sourceId: 'holoshoot-video-source',
+                mp4Source: [
+                    'assets/videos/holoshoot-course-project-2017.mp4'
                 ]
             });
 
