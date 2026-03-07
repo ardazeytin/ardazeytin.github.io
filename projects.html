@@ -9,6 +9,40 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
     <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/css/pikaday.min.css">
+    <style>
+        .hover-video-card {
+            position: relative;
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+        }
+        .hover-video-card .hover-video,
+        .hover-video-card .hover-fallback-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            background: #000;
+        }
+        .hover-video-card .hover-video {
+            position: absolute;
+            inset: 0;
+            border: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .hover-video-card .hover-fallback-image {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            display: none;
+            z-index: 1;
+        }
+        .hover-video-card.fallback .hover-video {
+            opacity: 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,7 +66,15 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-lg-4">
-                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://fitxr.com/"><img src="assets/img/projects/fitxrthumbnail.jpg" alt="Card Image" class="card-img-top scale-on-hover"></a>
+                        <div class="card border-0">
+                            <a target="_blank" rel="noopener noreferrer" href="https://fitxr.com/">
+                                <span class="card-img-top scale-on-hover hover-video-card" id="fitxr-preview">
+                                    <video id="fitxr-video" class="hover-video" title="FitXR preview" autoplay muted loop playsinline>
+                                        <source id="fitxr-video-source" src="https://fitxr.com/cdn/shop/videos/c/vp/2bedac5dc78a4969b1cf45a68017b991/2bedac5dc78a4969b1cf45a68017b991.m3u8?v=0" type="application/x-mpegURL">
+                                    </video>
+                                    <img id="fitxr-fallback" src="assets/img/projects/fitxrthumbnail.jpg" alt="Card Image" class="hover-fallback-image">
+                                </span>
+                            </a>
                             <div class="card-body">
                                 <h6><a target="_blank" rel="noopener noreferrer" href="https://fitxr.com/">FitXR</a></h6>
                                 <p class="text-muted card-text">2022 - 2025</p>
@@ -326,7 +368,80 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.17/hls.min.js"></script>
     <script src="assets/js/theme.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const fitxrPreview = document.getElementById('fitxr-preview');
+            const fitxrVideo = document.getElementById('fitxr-video');
+            const fitxrFallback = document.getElementById('fitxr-fallback');
+            const hlsSource = 'https://fitxr.com/cdn/shop/videos/c/vp/2bedac5dc78a4969b1cf45a68017b991/2bedac5dc78a4969b1cf45a68017b991.m3u8?v=0';
+            const mp4Source = 'https://fitxr.com/cdn/shop/videos/c/vp/2bedac5dc78a4969b1cf45a68017b991/2bedac5dc78a4969b1cf45a68017b991.HD-1080p-2.5Mbps-63701758.mp4?v=0';
+            const videoSource = document.getElementById('fitxr-video-source');
+            let hlsInstance = null;
+            let videoInitialized = false;
+
+            if (!fitxrPreview || !fitxrVideo) {
+                return;
+            }
+
+            const showFallback = () => {
+                if (fitxrFallback) {
+                    fitxrFallback.style.display = 'block';
+                }
+                fitxrPreview.classList.add('fallback');
+            };
+
+            const initializeVideo = () => {
+                if (videoInitialized) {
+                    return;
+                }
+
+                const fallbackToMp4 = () => {
+                    if (!videoSource) {
+                        return;
+                    }
+                    videoSource.setAttribute('type', 'video/mp4');
+                    videoSource.setAttribute('src', mp4Source);
+                    fitxrVideo.load();
+                    const playPromise = fitxrVideo.play();
+                    if (playPromise && playPromise.catch) {
+                        playPromise.catch(showFallback);
+                    }
+                };
+
+                if (typeof Hls !== 'undefined' && Hls.isSupported()) {
+                    hlsInstance = new Hls({
+                        lowLatencyMode: true
+                    });
+                    hlsInstance.loadSource(hlsSource);
+                    hlsInstance.attachMedia(fitxrVideo);
+                    hlsInstance.on(Hls.Events.ERROR, (event, data) => {
+                        if (data && data.fatal) {
+                            fallbackToMp4();
+                        }
+                    });
+                } else if (fitxrVideo.canPlayType('application/vnd.apple.mpegurl')) {
+                    videoSource.setAttribute('src', hlsSource);
+                    fitxrVideo.load();
+                } else if (fitxrVideo.canPlayType('video/mp4')) {
+                    fallbackToMp4();
+                } else {
+                    fallbackToMp4();
+                }
+
+                videoInitialized = true;
+            };
+
+            fitxrVideo.addEventListener('error', showFallback);
+            fitxrVideo.addEventListener('loadeddata', () => {
+                fitxrFallback.style.display = 'none';
+                fitxrPreview.classList.remove('fallback');
+            });
+
+            initializeVideo();
+        });
+    </script>
 </body>
 
 </html>
