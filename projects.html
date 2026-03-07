@@ -306,9 +306,16 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=pv107De7rWI"><img src="assets\img\projects\mrpthumbnail.jpg" alt="Card Image" class="card-img-top scale-on-hover"></a>
+                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="assets/videos/mr-p-course-project-2018.mp4">
+                            <span class="card-img-top scale-on-hover hover-video-card" id="mrp-preview">
+                                <video id="mrp-video" class="hover-video" title="Mr. P preview" autoplay muted loop playsinline preload="none" poster="assets/img/projects/mrpthumbnail.jpg">
+                                    <source id="mrp-video-source" src="assets/videos/mr-p-course-project-2018.mp4" type="video/mp4">
+                                </video>
+                                <img id="mrp-fallback" src="assets/img/projects/mrpthumbnail.jpg" alt="Card Image" class="hover-fallback-image">
+                            </span>
+                        </a>
                             <div class="card-body">
-                                <h6><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=pv107De7rWI">Mr. P</a></h6>
+                                <h6><a target="_blank" rel="noopener noreferrer" href="assets/videos/mr-p-course-project-2018.mp4">Mr. P</a></h6>
                                 <p class="text-muted card-text">2017</p>
                                 <p class="text-muted card-text">Software Engineering Student at Izmir University of Economics</p>
                                 <p class="text-muted card-text">Unity - PC Game</p>
@@ -697,6 +704,16 @@
                 sourceId: 'magicarena-video-source',
                 mp4Source: [
                     'assets/videos/magic-arena-online-vr.mp4'
+                ]
+            });
+
+            initializeVideoCard({
+                previewId: 'mrp-preview',
+                videoId: 'mrp-video',
+                fallbackId: 'mrp-fallback',
+                sourceId: 'mrp-video-source',
+                mp4Source: [
+                    'assets/videos/mr-p-course-project-2018.mp4'
                 ]
             });
 
