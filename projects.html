@@ -195,9 +195,16 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://codemodeon.com/selpak-professional-vr/"><img src="assets\img\projects\selpakthumbnail.jpeg" alt="Card Image" class="card-img-top scale-on-hover"></a>
+                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="assets/videos/codemodeon-selpak-vr.mp4">
+                                <span class="card-img-top scale-on-hover hover-video-card" id="selpak-preview">
+                                    <video id="selpak-video" class="hover-video" title="Selpak Professional VR preview" autoplay muted loop playsinline preload="none" poster="assets/img/projects/selpakthumbnail.jpeg">
+                                        <source id="selpak-video-source" src="assets/videos/codemodeon-selpak-vr.mp4" type="video/mp4">
+                                    </video>
+                                    <img id="selpak-fallback" src="assets/img/projects/selpakthumbnail.jpeg" alt="Card Image" class="hover-fallback-image">
+                                </span>
+                            </a>
                             <div class="card-body">
-                                <h6><a target="_blank" rel="noopener noreferrer" href="https://codemodeon.com/selpak-professional-vr/">Selpak Professional VR</a></h6>
+                                <h6><a target="_blank" rel="noopener noreferrer" href="assets/videos/codemodeon-selpak-vr.mp4">Selpak Professional VR</a></h6>
                                 <p class="text-muted card-text">2019</p>
                                 <p class="text-muted card-text">Software & Game Developer at Codemodeon</p>
                                 <p class="text-muted card-text">Unity - HTC Vive + Android + iOS</p>
@@ -206,9 +213,16 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                            <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=0YvdlP4UqVk"><img src="assets\img\projects\beatmodeonthumbnail.jpeg" alt="Card Image" class="card-img-top scale-on-hover"></a>
+                            <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="assets/videos/codemodeon-beatmodeon-vr.mp4">
+                                    <span class="card-img-top scale-on-hover hover-video-card" id="beatmodeon-preview">
+                                        <video id="beatmodeon-video" class="hover-video" title="Beatmodeon VR preview" autoplay muted loop playsinline preload="none" poster="assets/img/projects/beatmodeonthumbnail.jpeg">
+                                            <source id="beatmodeon-video-source" src="assets/videos/codemodeon-beatmodeon-vr.mp4" type="video/mp4">
+                                        </video>
+                                        <img id="beatmodeon-fallback" src="assets/img/projects/beatmodeonthumbnail.jpeg" alt="Card Image" class="hover-fallback-image">
+                                    </span>
+                                </a>
                                 <div class="card-body">
-                                    <h6><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=0YvdlP4UqVk">Beatmodeon VR</a></h6>
+                                    <h6><a target="_blank" rel="noopener noreferrer" href="assets/videos/codemodeon-beatmodeon-vr.mp4">Beatmodeon VR</a></h6>
                                     <p class="text-muted card-text">2019</p>
                                     <p class="text-muted card-text">Software & Game Developer at Codemodeon</p>
                                     <p class="text-muted card-text">Unity - HTC Vive + Oculus Rift</p>
@@ -578,6 +592,26 @@
                 sourceId: 'canoe-video-source',
                 mp4Source: [
                     'assets/videos/codemodeon-canoe-vr.mp4'
+                ]
+            });
+
+            initializeVideoCard({
+                previewId: 'selpak-preview',
+                videoId: 'selpak-video',
+                fallbackId: 'selpak-fallback',
+                sourceId: 'selpak-video-source',
+                mp4Source: [
+                    'assets/videos/codemodeon-selpak-vr.mp4'
+                ]
+            });
+
+            initializeVideoCard({
+                previewId: 'beatmodeon-preview',
+                videoId: 'beatmodeon-video',
+                fallbackId: 'beatmodeon-fallback',
+                sourceId: 'beatmodeon-video-source',
+                mp4Source: [
+                    'assets/videos/codemodeon-beatmodeon-vr.mp4'
                 ]
             });
 
