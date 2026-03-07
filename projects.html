@@ -141,7 +141,14 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://www.glitchstudios.co/projects-archive/eidsvoll/"><img src="assets\img\projects\eidsvoll1814thumbnail.jpg" alt="Card Image" class="card-img-top scale-on-hover"></a>
+                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://www.glitchstudios.co/projects-archive/eidsvoll/">
+                                <span class="card-img-top scale-on-hover hover-video-card" id="eidsvoll-preview">
+                                    <video id="eidsvoll-video" class="hover-video" title="Eidsvoll 1814 preview" autoplay muted loop playsinline preload="none" poster="assets/img/projects/eidsvoll1814thumbnail.jpg">
+                                        <source id="eidsvoll-video-source" src="https://www.glitchstudios.co/wp-content/uploads/2024/04/eidsvoll_story.mp4" type="video/mp4">
+                                    </video>
+                                    <img id="eidsvoll-fallback" src="assets/img/projects/eidsvoll1814thumbnail.jpg" alt="Card Image" class="hover-fallback-image">
+                                </span>
+                            </a>
                             <div class="card-body">
                                 <h6><a target="_blank" rel="noopener noreferrer" href="https://www.glitchstudios.co/projects-archive/eidsvoll/">Eidsvoll 1814</a></h6>
                                 <p class="text-muted card-text">2020</p>
@@ -152,7 +159,14 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://www.glitchstudios.co/projects-archive/kon-tiki/"><img src="assets/img/projects/kontikitumbnail.jpg" alt="Card Image" class="card-img-top scale-on-hover"></a>
+                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://www.glitchstudios.co/projects-archive/kon-tiki/">
+                                <span class="card-img-top scale-on-hover hover-video-card" id="kontiki-preview">
+                                    <video id="kontiki-video" class="hover-video" title="Kon-Tiki VR preview" autoplay muted loop playsinline preload="none" poster="assets/img/projects/kontikitumbnail.jpg">
+                                        <source id="kontiki-video-source" src="https://www.glitchstudios.co/wp-content/uploads/2024/04/kon-tiki.mp4" type="video/mp4">
+                                    </video>
+                                    <img id="kontiki-fallback" src="assets/img/projects/kontikitumbnail.jpg" alt="Card Image" class="hover-fallback-image">
+                                </span>
+                            </a>
                             <div class="card-body">
                                 <h6><a target="_blank" rel="noopener noreferrer" href="https://www.glitchstudios.co/projects-archive/kon-tiki/">Kon-Tiki VR</a></h6>
                                 <p class="text-muted card-text">2019</p>
@@ -527,6 +541,26 @@
                 sourceId: 'delta-video-source',
                 mp4Source: [
                     'https://www.glitchstudios.co/wp-content/uploads/2024/05/delta_digital_exhibition.mp4'
+                ]
+            });
+
+            initializeVideoCard({
+                previewId: 'eidsvoll-preview',
+                videoId: 'eidsvoll-video',
+                fallbackId: 'eidsvoll-fallback',
+                sourceId: 'eidsvoll-video-source',
+                mp4Source: [
+                    'https://www.glitchstudios.co/wp-content/uploads/2024/04/eidsvoll_story.mp4'
+                ]
+            });
+
+            initializeVideoCard({
+                previewId: 'kontiki-preview',
+                videoId: 'kontiki-video',
+                fallbackId: 'kontiki-fallback',
+                sourceId: 'kontiki-video-source',
+                mp4Source: [
+                    'https://www.glitchstudios.co/wp-content/uploads/2024/04/kon-tiki.mp4'
                 ]
             });
 
