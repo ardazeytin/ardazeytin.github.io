@@ -270,15 +270,22 @@
                             </div>
                         </div>
                     <div class="col-md-6 col-lg-4">
-                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=WaLhhuTYEHs"><img src="assets\img\projects\magicarenaonlinethumbnail.jpg" alt="Card Image" class="card-img-top scale-on-hover"></a>
-                            <div class="card-body">
-                                <h6><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=WaLhhuTYEHs">Magic Arena Online</a></h6>
-                                <p class="text-muted card-text">2016</p>
-                                <p class="text-muted card-text">Software Engineering Student at Izmir University of Economics</p>
-                                <p class="text-muted card-text">Unity - Multiplayer PC Game</p>
-                                <p class="text-muted card-text">`Network Programming in Computer Games` course project. Third person multiplayer arena war game. Powered with Unity Networking.</p>
+                            <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="assets/videos/magic-arena-online-vr.mp4">
+                                    <span class="card-img-top scale-on-hover hover-video-card" id="magicarena-preview">
+                                        <video id="magicarena-video" class="hover-video" title="Magic Arena Online preview" autoplay muted loop playsinline preload="none" poster="assets/img/projects/magicarenaonlinethumbnail.jpg">
+                                            <source id="magicarena-video-source" src="assets/videos/magic-arena-online-vr.mp4" type="video/mp4">
+                                        </video>
+                                        <img id="magicarena-fallback" src="assets/img/projects/magicarenaonlinethumbnail.jpg" alt="Card Image" class="hover-fallback-image">
+                                    </span>
+                                </a>
+                                <div class="card-body">
+                                    <h6><a target="_blank" rel="noopener noreferrer" href="assets/videos/magic-arena-online-vr.mp4">Magic Arena Online</a></h6>
+                                    <p class="text-muted card-text">2016</p>
+                                    <p class="text-muted card-text">Software Engineering Student at Izmir University of Economics</p>
+                                    <p class="text-muted card-text">Unity - Multiplayer PC Game</p>
+                                    <p class="text-muted card-text">`Network Programming in Computer Games` course project. Third person multiplayer arena war game. Powered with Unity Networking.</p>
+                                </div>
                             </div>
-                        </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=3YDC-xcFdRM"><img src="assets\img\projects\gravitythumbnail2.jpg" alt="Card Image" class="card-img-top scale-on-hover"></a>
@@ -663,6 +670,16 @@
                 sourceId: 'beatmodeon-video-source',
                 mp4Source: [
                     'assets/videos/codemodeon-beatmodeon-vr.mp4'
+                ]
+            });
+
+            initializeVideoCard({
+                previewId: 'magicarena-preview',
+                videoId: 'magicarena-video',
+                fallbackId: 'magicarena-fallback',
+                sourceId: 'magicarena-video-source',
+                mp4Source: [
+                    'assets/videos/magic-arena-online-vr.mp4'
                 ]
             });
 
