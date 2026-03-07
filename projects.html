@@ -177,9 +177,16 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=SX72iYxmvNc"><img src="assets\img\projects\canoevrthumbnail.jpg" alt="Card Image" class="card-img-top scale-on-hover"></a>
+                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="assets/videos/codemodeon-canoe-vr.mp4">
+                                <span class="card-img-top scale-on-hover hover-video-card" id="canoe-preview">
+                                    <video id="canoe-video" class="hover-video" title="Canoe VR preview" autoplay muted loop playsinline preload="none" poster="assets/img/projects/canoevrthumbnail.jpg">
+                                        <source id="canoe-video-source" src="assets/videos/codemodeon-canoe-vr.mp4" type="video/mp4">
+                                    </video>
+                                    <img id="canoe-fallback" src="assets/img/projects/canoevrthumbnail.jpg" alt="Card Image" class="hover-fallback-image">
+                                </span>
+                            </a>
                             <div class="card-body">
-                                <h6><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=SX72iYxmvNc">Canoe VR</a></h6>
+                                <h6><a target="_blank" rel="noopener noreferrer" href="assets/videos/codemodeon-canoe-vr.mp4">Canoe VR</a></h6>
                                 <p class="text-muted card-text">2019</p>
                                 <p class="text-muted card-text">Software & Game Developer at Codemodeon</p>
                                 <p class="text-muted card-text">Unity - Multiplayer - HTC Vive</p>
@@ -561,6 +568,16 @@
                 sourceId: 'kontiki-video-source',
                 mp4Source: [
                     'https://www.glitchstudios.co/wp-content/uploads/2024/04/kon-tiki.mp4'
+                ]
+            });
+
+            initializeVideoCard({
+                previewId: 'canoe-preview',
+                videoId: 'canoe-video',
+                fallbackId: 'canoe-fallback',
+                sourceId: 'canoe-video-source',
+                mp4Source: [
+                    'assets/videos/codemodeon-canoe-vr.mp4'
                 ]
             });
 
