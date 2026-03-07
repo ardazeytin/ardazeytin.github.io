@@ -42,6 +42,27 @@
         .hover-video-card.fallback .hover-video {
             opacity: 0;
         }
+        .hover-slideshow-card {
+            position: relative;
+            display: block;
+            width: 100%;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+        .hover-slideshow-card .slideshow-frame {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+        .hover-slideshow-card .slideshow-frame.active {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -229,9 +250,16 @@
                                     <p class="text-muted card-text">Created Beatmodeon, a rhythm-based immersive game where players slash boxes in sync with music using virtual sabers, built within a visually stunning interactive environment.</p>
                                 </div>
                             </div>
-                        </div>
+                    </div>
                     <div class="col-md-6 col-lg-4">
-                            <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://codemodeon.com/tr/urunler/facematik/"><img src="assets\img\projects\facematikthumbnail.jpg" alt="Card Image" class="card-img-top scale-on-hover"></a>
+                            <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://codemodeon.com/tr/urunler/facematik/">
+                                    <span class="card-img-top scale-on-hover hover-slideshow-card" id="facematik-preview">
+                                        <img src="assets/img/projects/facematik-slides/facematik-product-photo-1.jpg" alt="Facematik slideshow image 1" class="slideshow-frame active">
+                                        <img src="assets/img/projects/facematik-slides/facematik-product-photo-2.jpg" alt="Facematik slideshow image 2" class="slideshow-frame">
+                                        <img src="assets/img/projects/facematik-slides/facematik-product-photo-3.jpg" alt="Facematik slideshow image 3" class="slideshow-frame">
+                                        <img src="assets/img/projects/facematik-slides/facematik-product-photo-4.jpg" alt="Facematik slideshow image 4" class="slideshow-frame">
+                                    </span>
+                                </a>
                                 <div class="card-body">
                                     <h6><a target="_blank" rel="noopener noreferrer" href="https://codemodeon.com/tr/urunler/facematik/">Facematik</a></h6>
                                     <p class="text-muted card-text">2017</p>
@@ -516,6 +544,29 @@
                 initialize();
             };
 
+            const initializeSlideshowCard = (config) => {
+                const preview = document.getElementById(config.previewId);
+
+                if (!preview) {
+                    return;
+                }
+
+                const frames = Array.from(preview.querySelectorAll('.slideshow-frame'));
+
+                if (frames.length < 2) {
+                    return;
+                }
+
+                let activeIndex = 0;
+                const intervalMs = config.intervalMs || 2200;
+
+                window.setInterval(() => {
+                    frames[activeIndex].classList.remove('active');
+                    activeIndex = (activeIndex + 1) % frames.length;
+                    frames[activeIndex].classList.add('active');
+                }, intervalMs);
+            };
+
             initializeVideoCard({
                 previewId: 'fitxr-preview',
                 videoId: 'fitxr-video',
@@ -613,6 +664,11 @@
                 mp4Source: [
                     'assets/videos/codemodeon-beatmodeon-vr.mp4'
                 ]
+            });
+
+            initializeSlideshowCard({
+                previewId: 'facematik-preview',
+                intervalMs: 2200
             });
 
         });
