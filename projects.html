@@ -85,7 +85,15 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://dreal.co/"><img src="assets/img/projects/drealthumbnail.jpg" alt="Card Image" class="card-img-top scale-on-hover"></a>
+                        <div class="card border-0">
+                            <a target="_blank" rel="noopener noreferrer" href="https://dreal.co/">
+                                <span class="card-img-top scale-on-hover hover-video-card" id="dreal-preview">
+                                    <video id="dreal-video" class="hover-video" title="Dreal preview" autoplay muted loop playsinline preload="none" poster="assets/img/projects/drealthumbnail.jpg">
+                                        <source id="dreal-video-source" src="/museumCard.mp4" type="video/mp4">
+                                    </video>
+                                    <img id="dreal-fallback" src="assets/img/projects/drealthumbnail.jpg" alt="Card Image" class="hover-fallback-image">
+                                </span>
+                            </a>
                             <div class="card-body">
                                 <h6><a target="_blank" rel="noopener noreferrer" href="https://dreal.co/">Dreal</a></h6>
                                 <p class="text-muted card-text">2021</p>
@@ -372,74 +380,115 @@
     <script src="assets/js/theme.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const fitxrPreview = document.getElementById('fitxr-preview');
-            const fitxrVideo = document.getElementById('fitxr-video');
-            const fitxrFallback = document.getElementById('fitxr-fallback');
-            const hlsSource = 'https://fitxr.com/cdn/shop/videos/c/vp/2bedac5dc78a4969b1cf45a68017b991/2bedac5dc78a4969b1cf45a68017b991.m3u8?v=0';
-            const mp4Source = 'https://fitxr.com/cdn/shop/videos/c/vp/2bedac5dc78a4969b1cf45a68017b991/2bedac5dc78a4969b1cf45a68017b991.HD-1080p-2.5Mbps-63701758.mp4?v=0';
-            const videoSource = document.getElementById('fitxr-video-source');
-            let hlsInstance = null;
-            let videoInitialized = false;
+            const initializeVideoCard = (config) => {
+                const preview = document.getElementById(config.previewId);
+                const video = document.getElementById(config.videoId);
+                const fallback = document.getElementById(config.fallbackId);
+                const source = document.getElementById(config.sourceId);
+                const hlsSource = config.hlsSource || '';
+                const mp4Sources = Array.isArray(config.mp4Source)
+                    ? config.mp4Source
+                    : (config.mp4Source ? [config.mp4Source] : []);
+                let hlsInstance = null;
+                let initialized = false;
 
-            if (!fitxrPreview || !fitxrVideo) {
-                return;
-            }
-
-            const showFallback = () => {
-                if (fitxrFallback) {
-                    fitxrFallback.style.display = 'block';
-                }
-                fitxrPreview.classList.add('fallback');
-            };
-
-            const initializeVideo = () => {
-                if (videoInitialized) {
+                if (!preview || !video || !fallback || !source) {
                     return;
                 }
 
-                const fallbackToMp4 = () => {
-                    if (!videoSource) {
-                        return;
-                    }
-                    videoSource.setAttribute('type', 'video/mp4');
-                    videoSource.setAttribute('src', mp4Source);
-                    fitxrVideo.load();
-                    const playPromise = fitxrVideo.play();
+                const showFallback = () => {
+                    fallback.style.display = 'block';
+                    preview.classList.add('fallback');
+                };
+
+                const tryPlay = () => {
+                    const playPromise = video.play();
                     if (playPromise && playPromise.catch) {
                         playPromise.catch(showFallback);
                     }
                 };
 
-                if (typeof Hls !== 'undefined' && Hls.isSupported()) {
-                    hlsInstance = new Hls({
-                        lowLatencyMode: true
-                    });
-                    hlsInstance.loadSource(hlsSource);
-                    hlsInstance.attachMedia(fitxrVideo);
-                    hlsInstance.on(Hls.Events.ERROR, (event, data) => {
-                        if (data && data.fatal) {
-                            fallbackToMp4();
-                        }
-                    });
-                } else if (fitxrVideo.canPlayType('application/vnd.apple.mpegurl')) {
-                    videoSource.setAttribute('src', hlsSource);
-                    fitxrVideo.load();
-                } else if (fitxrVideo.canPlayType('video/mp4')) {
-                    fallbackToMp4();
-                } else {
-                    fallbackToMp4();
-                }
+                const fallbackToMp4 = () => {
+                    if (!mp4Sources.length) {
+                        return showFallback();
+                    }
+                    const nextSource = mp4Sources.shift();
+                    if (!nextSource) {
+                        return showFallback();
+                    }
+                    source.setAttribute('type', 'video/mp4');
+                    source.setAttribute('src', nextSource);
+                    video.load();
+                    tryPlay();
+                };
 
-                videoInitialized = true;
+                const initialize = () => {
+                    if (initialized) {
+                        return;
+                    }
+
+                    if (hlsSource && typeof Hls !== 'undefined' && Hls.isSupported()) {
+                        hlsInstance = new Hls();
+                        hlsInstance.loadSource(hlsSource);
+                        hlsInstance.attachMedia(video);
+                        hlsInstance.on(Hls.Events.ERROR, (event, data) => {
+                            if (data && data.fatal) {
+                                fallbackToMp4();
+                            }
+                        });
+                    } else if (hlsSource && video.canPlayType('application/vnd.apple.mpegurl')) {
+                        source.setAttribute('src', hlsSource);
+                        video.load();
+                    } else if (mp4Sources.length) {
+                        fallbackToMp4();
+                    } else {
+                        showFallback();
+                    }
+
+                    initialized = true;
+                };
+
+                const handleVideoError = () => {
+                    if (mp4Sources.length) {
+                        fallbackToMp4();
+                        return;
+                    }
+                    showFallback();
+                };
+
+                video.addEventListener('error', handleVideoError);
+                video.addEventListener('loadeddata', () => {
+                    fallback.style.display = 'none';
+                    preview.classList.remove('fallback');
+                    tryPlay();
+                });
+
+                initialize();
             };
 
-            fitxrVideo.addEventListener('error', showFallback);
-            fitxrVideo.addEventListener('loadeddata', () => {
-                fitxrFallback.style.display = 'none';
-                fitxrPreview.classList.remove('fallback');
+            initializeVideoCard({
+                previewId: 'fitxr-preview',
+                videoId: 'fitxr-video',
+                fallbackId: 'fitxr-fallback',
+                sourceId: 'fitxr-video-source',
+                hlsSource: 'https://fitxr.com/cdn/shop/videos/c/vp/2bedac5dc78a4969b1cf45a68017b991/2bedac5dc78a4969b1cf45a68017b991.m3u8?v=0',
+                mp4Source: 'https://fitxr.com/cdn/shop/videos/c/vp/2bedac5dc78a4969b1cf45a68017b991/2bedac5dc78a4969b1cf45a68017b991.HD-1080p-2.5Mbps-63701758.mp4?v=0'
             });
 
-            initializeVideo();
+            initializeVideoCard({
+                previewId: 'dreal-preview',
+                videoId: 'dreal-video',
+                fallbackId: 'dreal-fallback',
+                sourceId: 'dreal-video-source',
+                mp4Source: [
+                    'https://dreal.co/museumCard.mp4',
+                    'https://www.dreal.co/museumCard.mp4',
+                    '/museumCard.mp4',
+                    'museumCard.mp4',
+                    '/assets/museumCard.mp4'
+                ]
+            });
+
         });
     </script>
 </body>
