@@ -288,9 +288,16 @@
                             </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=3YDC-xcFdRM"><img src="assets\img\projects\gravitythumbnail2.jpg" alt="Card Image" class="card-img-top scale-on-hover"></a>
+                        <div class="card border-0"><a target="_blank" rel="noopener noreferrer" href="assets/videos/gravity-course-project-2018.mp4">
+                            <span class="card-img-top scale-on-hover hover-video-card" id="gravity-preview">
+                                <video id="gravity-video" class="hover-video" title="Gravity preview" autoplay muted loop playsinline preload="none" poster="assets/img/projects/gravitythumbnail2.jpg">
+                                    <source id="gravity-video-source" src="assets/videos/gravity-course-project-2018.mp4" type="video/mp4">
+                                </video>
+                                <img id="gravity-fallback" src="assets/img/projects/gravitythumbnail2.jpg" alt="Card Image" class="hover-fallback-image">
+                            </span>
+                        </a>
                             <div class="card-body">
-                                <h6><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=3YDC-xcFdRM">Gravity</a></h6>
+                                <h6><a target="_blank" rel="noopener noreferrer" href="assets/videos/gravity-course-project-2018.mp4">Gravity</a></h6>
                                 <p class="text-muted card-text">2018</p>
                                 <p class="text-muted card-text">Software Engineering Student at Izmir University of Economics</p>
                                 <p class="text-muted card-text">Unity - 2D Mobile Game</p>
@@ -670,6 +677,16 @@
                 sourceId: 'beatmodeon-video-source',
                 mp4Source: [
                     'assets/videos/codemodeon-beatmodeon-vr.mp4'
+                ]
+            });
+
+            initializeVideoCard({
+                previewId: 'gravity-preview',
+                videoId: 'gravity-video',
+                fallbackId: 'gravity-fallback',
+                sourceId: 'gravity-video-source',
+                mp4Source: [
+                    'assets/videos/gravity-course-project-2018.mp4'
                 ]
             });
 
